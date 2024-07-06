@@ -1,5 +1,6 @@
 import 'package:calc/buttons.dart';
 import 'package:flutter/material.dart';
+import 'package:math_expressions/math_expressions.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -55,6 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         color: Color(0xff594319),
                         press: () {
                           question = '';
+                          answer = '';
                           setState(() {});
                         },
                       ),
@@ -222,7 +224,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         value: '=',
                         color: Color(0xff733331),
                         press: () {
-                          question += '';
+                          equalsto();
                           setState(() {});
                         },
                       ),
@@ -235,5 +237,15 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
+  }
+
+  void equalsto() {
+    String modifiedQues = question.replaceAll('×', '*');
+
+    Parser p = Parser();
+    Expression exp = p.parse(modifiedQues);
+    ContextModel cm = ContextModel();
+    double eval = exp.evaluate(EvaluationType.REAL, cm);
+    answer = eval.toString();
   }
 }
