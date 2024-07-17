@@ -15,6 +15,7 @@ class CalcApp extends StatelessWidget {
         path: '/splash',
         builder: (context, state) => SplashScreen(),
       ),
+      
     ],
   );
 
